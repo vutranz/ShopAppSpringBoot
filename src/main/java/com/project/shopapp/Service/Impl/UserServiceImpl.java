@@ -7,6 +7,7 @@ import com.project.shopapp.Repository.RoleRepository;
 import com.project.shopapp.Repository.UserRepository;
 import com.project.shopapp.Service.UserService;
 import com.project.shopapp.components.JwtTokenUtil;
+import com.project.shopapp.config.MyUserDetails;
 import com.project.shopapp.exception.DataNotFoundException;
 import com.project.shopapp.exception.PermissionDenyException;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +77,7 @@ public class UserServiceImpl implements UserService {
         }
         //return optionalUser.get();
         User existingUser = optionalUser.get();
+        MyUserDetails userDetails = new MyUserDetails(existingUser);
 
         if(existingUser.getFacebookAccountId() == 0 && existingUser.getGoogleAccountId() == 0){
             if(!passwordEncoder.matches(password, existingUser.getPassword())){
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(phoneNumber, password
-        ,existingUser.getAuthorities());
+        ,userDetails.getAuthorities());
 
         //authenticate with spring security
         authenticationManager.authenticate(authToken);

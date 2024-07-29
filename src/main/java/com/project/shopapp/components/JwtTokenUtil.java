@@ -32,6 +32,7 @@ public class JwtTokenUtil {
     private String secretkey;
 
     public String generateToken(User user) throws Exception{
+
         Map<String, Object> claims = new HashMap<>();
         //this.generateSecretkey();
         claims.put("phoneNumber", user.getPhoneNumber());

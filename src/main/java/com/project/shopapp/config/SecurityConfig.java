@@ -19,17 +19,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private  final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-
-    //user detail object
+    // user detail object
     @Bean
     public UserDetailsService userDetailsService() {
-        return phoneNumber -> userRepository
-                .findByPhoneNumber(phoneNumber)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"+phoneNumber));
-
-
+        return phoneNumber -> {
+            User user = userRepository
+                    .findByPhoneNumber(phoneNumber)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found: " + phoneNumber));
+            return new MyUserDetails(user);
+        };
     }
 
     @Bean

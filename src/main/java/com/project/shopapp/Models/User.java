@@ -15,13 +15,12 @@ import java.util.List;
 
 @Table(name="users")
 @Entity
-@Data
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -55,28 +54,6 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name="role_id")
     private Role role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authoritiesList = new ArrayList<>();
-        authoritiesList.add(new SimpleGrantedAuthority("ROLE_"+getRole().getName().toUpperCase()));
-        return authoritiesList;
-    }
 
-    @Override
-    public String getUsername() {
-        return phoneNumber;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {return true;}
-
-    @Override
-    public boolean isAccountNonLocked() {return true;}
-
-    @Override
-    public boolean isCredentialsNonExpired() {return true;}
-
-    @Override
-    public boolean isEnabled() {return true;}
 }
 

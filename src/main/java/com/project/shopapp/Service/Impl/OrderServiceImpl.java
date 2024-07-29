@@ -2,7 +2,7 @@ package com.project.shopapp.Service.Impl;
 
 import com.project.shopapp.DTO.OrderDTO;
 import com.project.shopapp.Models.Order;
-import com.project.shopapp.Models.OrderStatus;
+import com.project.shopapp.Constants.OrderStatus;
 import com.project.shopapp.Models.User;
 import com.project.shopapp.Repository.OrderRepository;
 import com.project.shopapp.Repository.UserRepository;
